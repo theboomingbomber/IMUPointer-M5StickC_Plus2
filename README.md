@@ -1,6 +1,6 @@
 # IMUPointer Firmware (M5StickC Plus2)
 
-`IMUPointer` is a PlatformIO firmware project that turns an `M5StickC Plus2` into a BLE air mouse for Windows (and other BLE HID hosts).
+`IMUPointer` is a PlatformIO firmware project that turns an `M5StickC Plus2` into a BLE air mouse for BLE HID hosts such as Windows and macOS.
 
 ## Highlights
 
@@ -38,7 +38,7 @@ pio device monitor -b 115200
 ## First Pairing
 
 1. Power on the device.
-2. Open Windows Bluetooth settings.
+2. Open your host Bluetooth settings.
 3. Add Bluetooth device and pair with `IMUPointer`.
 4. After connect, pointer/click/scroll should be active.
 

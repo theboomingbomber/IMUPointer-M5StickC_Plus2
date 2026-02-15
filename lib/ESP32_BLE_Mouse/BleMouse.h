@@ -3,31 +3,28 @@
 #include "sdkconfig.h"
 #if defined(CONFIG_BT_ENABLED)
 
-#include "BleConnectionStatus.h"
-#include "BLEHIDDevice.h"
-#include "BLECharacteristic.h"
-
-class BLEServer;
-class BLEAdvertising;
+#include <NimBLEDevice.h>
+#include <NimBLEServer.h>
+#include <NimBLEHIDDevice.h>
+#include <NimBLECharacteristic.h>
 
 #define MOUSE_LEFT 1
 #define MOUSE_RIGHT 2
 #define MOUSE_MIDDLE 4
 #define MOUSE_BACK 8
 #define MOUSE_FORWARD 16
-#define MOUSE_ALL (MOUSE_LEFT | MOUSE_RIGHT | MOUSE_MIDDLE) # For compatibility with the Mouse library
+#define MOUSE_ALL (MOUSE_LEFT | MOUSE_RIGHT | MOUSE_MIDDLE)
 
 class BleMouse {
 private:
   uint8_t _buttons;
-  BleConnectionStatus* connectionStatus;
-  BLEHIDDevice* hid;
-  BLECharacteristic* inputMouse;
-  BLEServer* server;
-  BLEAdvertising* advertising;
+  NimBLEHIDDevice* hid;
+  NimBLECharacteristic* inputMouse;
+  NimBLEServer* server;
+  NimBLEAdvertising* advertising;
+  bool connected;
   void buttons(uint8_t b);
-  void rawAction(uint8_t msg[], char msgSize);
-  static void taskServer(void* pvParameter);
+  void configureAdvertising();
 public:
   BleMouse(std::string deviceName = "ESP32 Bluetooth Mouse", std::string deviceManufacturer = "Espressif", uint8_t batteryLevel = 100);
   void begin(void);
@@ -44,7 +41,9 @@ public:
   std::string deviceManufacturer;
   std::string deviceName;
 protected:
-  virtual void onStarted(BLEServer *pServer) { };
+  class ServerCallbacks;
+  ServerCallbacks* callbacks;
+  virtual void onStarted(NimBLEServer* pServer) { };
 };
 
 #endif // CONFIG_BT_ENABLED

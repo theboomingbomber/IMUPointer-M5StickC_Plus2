@@ -487,11 +487,15 @@ void calibrateGyro(bool withCountdown) {
 void enterPairingMode() {
   releaseAllMouseButtons();
   resetMotionIntegrators();
+  Serial.printf("[BLE] pairing request (pre connected=%d)\n", bleMouse.isConnected() ? 1 : 0);
   const bool ok = bleMouse.startPairingMode();
-  Serial.printf("[BLE] pairing mode request -> %s\n", ok ? "started" : "not ready");
+  delay(80);
+  Serial.printf("[BLE] pairing mode request -> %s (post connected=%d)\n",
+                ok ? "started" : "not ready",
+                bleMouse.isConnected() ? 1 : 0);
   drawStatusScreen();
   drawCalibrationOverlay(ok ? "PAIR MODE" : "PAIR WAIT",
-                         ok ? "Scan in Windows BT" : "BLE still starting",
+                         ok ? "Scan in host BT menu" : "BLE still starting",
                          ok ? kAccent : kWarn);
 }
 
