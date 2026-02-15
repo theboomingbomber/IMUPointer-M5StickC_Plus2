@@ -23,11 +23,22 @@
 pio run
 ```
 
+After build, launcher-ready binaries are exported to `dist/`:
+
+- `dist/m5stickc_plus2-for-m5launcher.bin` (app-only image, use this first in M5Launcher)
+- `dist/m5stickc_plus2-full-flash-0x0000.bin` (bootloader + partitions + app merged image for full flashing)
+
 ## Flash
 
 ```bash
 pio run -t upload
 ```
+
+## M5Launcher
+
+Copy `dist/m5stickc_plus2-for-m5launcher.bin` to your SD card and launch it from `M5Launcher`.
+If your launcher workflow needs a full flash image instead, use
+`dist/m5stickc_plus2-full-flash-0x0000.bin`.
 
 ## Serial Monitor
 
