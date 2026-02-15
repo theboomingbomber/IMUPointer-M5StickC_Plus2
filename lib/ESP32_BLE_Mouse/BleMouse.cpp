@@ -4,8 +4,8 @@
 #include "HIDTypes.h"
 
 namespace {
-constexpr uint16_t kConnMinInterval = 0x10;  // 20 ms
-constexpr uint16_t kConnMaxInterval = 0x20;  // 40 ms
+constexpr uint16_t kConnMinInterval = 0x06;  // 7.5 ms
+constexpr uint16_t kConnMaxInterval = 0x09;  // 11.25 ms
 constexpr uint16_t kConnLatency = 0;
 constexpr uint16_t kConnTimeout = 400;       // 4 seconds
 constexpr uint16_t kPairingDisconnectWaitMs = 1000;
@@ -130,7 +130,7 @@ void BleMouse::configureAdvertising() {
   this->advertising->addServiceUUID(this->hid->getHidService()->getUUID());
   this->advertising->setName(this->deviceName);
   this->advertising->enableScanResponse(true);
-  this->advertising->setPreferredParams(0x06, 0x12);
+  this->advertising->setPreferredParams(kConnMinInterval, kConnMaxInterval);
 }
 
 void BleMouse::click(uint8_t b) {

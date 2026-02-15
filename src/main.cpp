@@ -6,7 +6,7 @@ namespace {
 constexpr const char* kDeviceName = "IMUPointer";
 constexpr const char* kManufacturer = "M5Stack";
 
-constexpr uint32_t kSampleIntervalMs = 8;     // ~125 Hz update loop
+constexpr uint32_t kSampleIntervalMs = 4;     // ~250 Hz IMU sampling (BLE report rate still host-limited)
 constexpr float kSensitivityX = 46.0f;        // Left/right (yaw) multiplier
 constexpr float kSensitivityY = 38.0f;        // Up/down (pitch) multiplier
 constexpr float kScrollSensitivity = 0.85f;   // Scroll speed when BtnB in scroll mode
